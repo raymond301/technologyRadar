@@ -1,0 +1,142 @@
+<div class="container" id="centerPage">
+
+</div>
+</br></br>
+
+
+<script>
+    var sp = 4;
+    var wedgeR = 140;
+    var arc_depth = 100;
+    var stage = new Kinetic.Stage({
+        container: 'centerPage',
+        width: 1170,
+        height: 1170
+    });
+
+    var layer = new Kinetic.Layer();
+
+
+
+
+    wSpace=[1,-1,-1,1];
+    hSpace=[1,1,-1,-1];
+    for(var n = 0; n < 4; n++) {
+        // induce scope
+        ( function() {
+
+            var wedge = new Kinetic.Wedge({
+                x: stage.width() / 2 + (wSpace[n]*sp),
+                y: stage.height() / 2 + (hSpace[n]*sp),
+                radius: wedgeR,
+                angle: 90,
+                fill: '#E0F2F7',
+                stroke: '#A4A4A4',
+                strokeWidth: 1,
+                rotation: n*90
+            });
+            wedge.on('mouseover', function() {
+                this.fill('#EFFBFB');
+                this.stroke('#FFFFFF');
+                layer.draw();
+                document.body.style.cursor = 'pointer';
+            });
+            wedge.on('mouseout', function() {
+                this.fill('#E0F2F7');
+                this.stroke('#A4A4A4');
+                layer.draw();
+                document.body.style.cursor = 'default';
+            });
+            layer.add(wedge);
+
+
+            for(var i = 0; i < 4; i++) {
+
+                var arc = new Kinetic.Arc({
+                x: stage.width() / 2 + (wSpace[n]*sp),
+                y: stage.height() / 2 + (hSpace[n]*sp),
+                innerRadius: wedgeR + (sp*(3+i)) + (arc_depth*i),
+                outerRadius: wedgeR + (sp*(2+i)) + (arc_depth*(i+1)),
+                fill: '#E0F2F7',
+                stroke: '#BDBDBD',
+                // strokeWidth: 1,
+                angle: 90,
+                rotationDeg: n*90
+                });
+                arc.on('mouseover', function() {
+                    this.fill('#EFFBFB');
+                    this.stroke('#FFFFFF');
+                    layer.draw();
+                    document.body.style.cursor = 'pointer';
+                });
+                arc.on('mouseout', function() {
+                    this.fill('#E0F2F7');
+                    this.stroke('#BDBDBD');
+                    layer.draw();
+                    document.body.style.cursor = 'default';
+                });
+
+                layer.add(arc);
+
+            }
+
+
+        }()); //induced scope
+    }
+
+
+    var mySpots = <%= @spots.to_json.html_safe %>;
+    for(var v = 0; v < mySpots.length; v++) {
+          console.log(mySpots[v]);
+          if(mySpots[v].shape === 'circle'){
+              var circle = new Kinetic.Circle({
+                x: mySpots[v].x,
+                y: mySpots[v].y,
+                radius: 10,
+                fill: 'red',
+                opacity: 0.6
+              });
+
+              var txt = new Kinetic.Text({
+                  x: mySpots[v].x + 13,
+                  y: mySpots[v].y - 8,
+                  text: mySpots[v].name,
+                  fontSize: 12, fill:'black'
+              }).hide();
+
+              circle.on('mouseover', function() {
+                  txt.show();
+                  this.stroke('#FFFFFF');
+                  layer.draw();
+                  document.body.style.cursor = 'pointer';
+              });
+              circle.on('mouseout', function() {
+                  txt.hide();
+                  this.stroke('#BDBDBD');
+                  layer.draw();
+                  document.body.style.cursor = 'default';
+              });
+
+              layer.add(circle);
+              layer.add(txt);
+
+          }
+
+    }
+
+
+    var tc = new Kinetic.Text({ x:0, y:5, text: 'Techniques', fontSize: 35, fontFamily: 'Calibri', fill:'black' });
+    var pl = new Kinetic.Text({ x:stage.width()-150, y:5, text: 'Platforms', fontSize: 35, fontFamily: 'Calibri', fill:'black' });
+    var tl = new Kinetic.Text({ x:0, y:stage.height()-37, text: 'Tools', fontSize: 35, fontFamily: 'Calibri', fill:'black' });
+    var ln = new Kinetic.Text({ x:stage.width()-150, y:stage.height()-37, text: 'Languages', fontSize: 35, fontFamily: 'Calibri', fill:'black' });
+
+
+    layer.add(tc);
+    layer.add(pl);
+    layer.add(tl);
+    layer.add(ln);
+
+
+    // add the layer to the stage
+    stage.add(layer);
+</script>
