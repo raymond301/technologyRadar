@@ -10,6 +10,10 @@ class DashboardController < ApplicationController
   end
 
   def show_spot
+    @tS = Techspot.find(params[:id])
+   # raise @tS.inspect
   end
+
+
 
 end

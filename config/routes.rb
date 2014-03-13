@@ -1,7 +1,8 @@
 ChipseqAssist::Application.routes.draw do
   get "dashboard/index"
   post "/create_spot" => 'dashboard#create_spot'
-  get "dashboard/show_spot"
+  get "dashboard/show_spot/:id" => 'dashboard#show_spot'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,8 @@
+
+<table class="table" style="margin-left: 50px; width: 400px">
+    <% @tS.attributes.each do |pj_name, pj_value| %>
+        <% next if pj_name =~ /^(id|x|y)/%>
+        <tr> <th><%=pj_name.upcase%></th>  <td><%=pj_value%></td> </tr>
+    <% end %>
+</table>
+

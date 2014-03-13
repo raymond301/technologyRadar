@@ -87,7 +87,8 @@
 
     var mySpots = <%= @spots.to_json.html_safe %>;
     for(var v = 0; v < mySpots.length; v++) {
-          console.log(mySpots[v]);
+          var showURL = '<%=root_url%>dashboard/show_spot/'+ mySpots[v]['id']
+
           if(mySpots[v].shape === 'circle'){
               var circle = new Kinetic.Circle({
                 x: mySpots[v].x,
@@ -102,9 +103,12 @@
                   y: mySpots[v].y - 8,
                   text: mySpots[v].name,
                   fontSize: 12, fill:'black'
-              }).hide();
+              });
 
-              circle.on('mouseover', function() {
+
+
+
+            /*  circle.on('mouseover', function() {
                   txt.show();
                   this.stroke('#FFFFFF');
                   layer.draw();
@@ -115,10 +119,13 @@
                   this.stroke('#BDBDBD');
                   layer.draw();
                   document.body.style.cursor = 'default';
+              });*/
+              circle.on('click', function() {
+                  window.location = showURL;
               });
 
-              layer.add(circle);
-              layer.add(txt);
+              //console.log( '<%=root_url%>dashboard/show_spot/'+ mySpots[v]['id'] );
+              layer.add(circle).add(txt);
 
           }
 
@@ -131,10 +138,7 @@
     var ln = new Kinetic.Text({ x:stage.width()-150, y:stage.height()-37, text: 'Languages', fontSize: 35, fontFamily: 'Calibri', fill:'black' });
 
 
-    layer.add(tc);
-    layer.add(pl);
-    layer.add(tl);
-    layer.add(ln);
+    layer.add(tc).add(pl).add(tl).add(ln);
 
 
     // add the layer to the stage
