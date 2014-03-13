@@ -87,7 +87,8 @@
 
     var mySpots = <%= @spots.to_json.html_safe %>;
     for(var v = 0; v < mySpots.length; v++) {
-          var showURL = '<%=root_url%>dashboard/show_spot/'+ mySpots[v]['id']
+        var showURL = '<%=root_url%>dashboard/show_spot/'+ mySpots[v]['id']
+        var editURL = '<%=root_url%>dashboard/edit_spot/?id='+ mySpots[v]['id']
 
           if(mySpots[v].shape === 'circle'){
               var circle = new Kinetic.Circle({
@@ -95,7 +96,8 @@
                 y: mySpots[v].y,
                 radius: 10,
                 fill: 'red',
-                opacity: 0.6
+                opacity: 0.6,
+                draggable: true
               });
 
               var txt = new Kinetic.Text({
@@ -104,22 +106,11 @@
                   text: mySpots[v].name,
                   fontSize: 12, fill:'black'
               });
-
-
-
-
-            /*  circle.on('mouseover', function() {
-                  txt.show();
-                  this.stroke('#FFFFFF');
-                  layer.draw();
-                  document.body.style.cursor = 'pointer';
+              circle.on('dragend', function() {
+                  var xI = this.getPosition().x;
+                  var yI = this.getPosition().y;
+                  window.location = editURL+'&x='+xI+'&y='+yI;
               });
-              circle.on('mouseout', function() {
-                  txt.hide();
-                  this.stroke('#BDBDBD');
-                  layer.draw();
-                  document.body.style.cursor = 'default';
-              });*/
               circle.on('click', function() {
                   window.location = showURL;
               });

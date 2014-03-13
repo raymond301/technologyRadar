@@ -2,6 +2,8 @@ ChipseqAssist::Application.routes.draw do
   get "dashboard/index"
   post "/create_spot" => 'dashboard#create_spot'
   get "dashboard/show_spot/:id" => 'dashboard#show_spot'
+  get "dashboard/edit_spot/" => 'dashboard#edit_spot'
+  post "dashboard/update_spot/" => 'dashboard#update_spot'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

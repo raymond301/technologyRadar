@@ -14,6 +14,16 @@ class DashboardController < ApplicationController
    # raise @tS.inspect
   end
 
+  def edit_spot
+    @tS = Techspot.find(params[:id])
+  end
+
+  def update_spot
+    tS = Techspot.find(params[:id])
+    tS.update_attributes(params)
+   # Note.new()
+    raise tS.inspect
+  end
 
 
 end

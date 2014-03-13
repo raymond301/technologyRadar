@@ -2,6 +2,8 @@ class Techspot < ActiveRecord::Base
   #define callback
   before_create :set_points
 
+  has_many  :notes
+
   def set_points
     canvasHieght=1170
     canvasWidth=1170
@@ -20,7 +22,6 @@ class Techspot < ActiveRecord::Base
       self.y = canvasWidth - (canvasWidth / 7)
     end
 
-    #raise self.inspect
   end
 
 end

@@ -1,0 +1,24 @@
+<%= form_tag(:action=>'update_spot', :html => { :class => "form-horizontal" }) do |f| %>
+    <%= hidden_field_tag 'id', @tS.id%>
+    <%= hidden_field_tag 'x', params[:x]%>
+    <%= hidden_field_tag 'y', params[:y]%>
+    <table class="table" style="margin-left: 50px; width: 200px">
+
+        <% @tS.attributes.each do |pj_name, pj_value| %>
+
+            <% next if pj_name =~ /^(id|x|y|created_at|updated)/%>
+            <tr> <th><%=pj_name.upcase%></th>  <td><%= text_field_tag pj_name, pj_value, size: 50 %></td> </tr>
+        <% end %>
+    </table>
+
+    </br>
+    <!--<div style="margin-left: 50px; width: 200px">
+    <p>Please enter an Editor Note:</p>
+    <%#= text_area_tag 'note', '', :size => "100x5" %>
+                                                </div>
+     -->
+     </br>
+    <div class="actions" style="margin-left: 100px">
+        <%= submit_tag "Update"%>
+    </div>
+<% end %>

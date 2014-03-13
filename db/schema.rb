@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116182303) do
+ActiveRecord::Schema.define(version: 20140313121830) do
+
+  create_table "notes", force: true do |t|
+    t.integer  "techspot_id"
+    t.text     "text"
+    t.string   "editor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "techspots", force: true do |t|
     t.string   "creator"
