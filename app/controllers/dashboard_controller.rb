@@ -20,9 +20,11 @@ class DashboardController < ApplicationController
 
   def update_spot
     tS = Techspot.find(params[:id])
-    tS.update_attributes(params)
+    tS.update_attributes(params.permit(:x,:y,:creator,:shape,:color,:name,:url,:desc,:layer,:sector))
+    tS.save!
+    redirect_to :root
    # Note.new()
-    raise tS.inspect
+   # raise tS.inspect
   end
 
 
